@@ -43,4 +43,32 @@ const createRobot = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllRobots, getRobot, createRobot };
+const updateRobot = async (req, res, next) => {
+  const robot = req.body;
+  try {
+    const response = await Robot.replaceOne({ _id: robot.id }, robot, {
+      runValidators: true,
+    });
+    if (response.modifiedCount === 0) {
+      const error = new Error("caca");
+      error.type = errorTypes.invalidId;
+      next(error);
+      return;
+    }
+
+    res.json(robot);
+  } catch (error) {
+    if (error.errors) {
+      error.type =
+        error.errors.name.kind === "required"
+          ? errorTypes.invalidSchema
+          : errorTypes.invalidId;
+    } else {
+      error.type = errorTypes.invalidId;
+    }
+
+    next(error);
+  }
+};
+
+module.exports = { getAllRobots, getRobot, createRobot, updateRobot };

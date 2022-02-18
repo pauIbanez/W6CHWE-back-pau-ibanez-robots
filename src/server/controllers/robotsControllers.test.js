@@ -26,4 +26,17 @@ describe("Given getAllRobots", () => {
       expect(next).not.toHaveBeenCalled();
     });
   });
+
+  describe("When it's invoked with a res and a next and find throws error", () => {
+    test("Then it should invoke next() with the catched error", async () => {
+      const error = new Error("haha u fucked");
+      const next = jest.fn();
+      Robot.find = jest.fn().mockRejectedValue(error);
+
+      await getAllRobots(null, null, next);
+
+      expect(Robot.find).toHaveBeenCalled();
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
 });

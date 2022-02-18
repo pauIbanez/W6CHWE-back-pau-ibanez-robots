@@ -7,6 +7,8 @@ const errorHandler = require("./middlewares/errorHandlers");
 const {
   resourceNotFound,
 } = require("./middlewares/errorHandlers/errorHandlers");
+const methodChecker = require("./middlewares/methodChecker");
+const { getToken } = require("./middlewares/tokens");
 const robotsRouter = require("./routers/robotsRouter");
 
 const app = express();
@@ -33,6 +35,7 @@ const startServer = (port) => {
 app.use(morgan("dev"));
 app.use(express.json());
 
+app.use("/token", methodChecker("GET"), getToken);
 app.use("/robots", robotsRouter);
 
 app.use(resourceNotFound);

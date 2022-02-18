@@ -71,4 +71,30 @@ const updateRobot = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllRobots, getRobot, createRobot, updateRobot };
+const deleteRobot = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const robot = await Robot.findByIdAndDelete(id);
+
+    if (robot) {
+      res.json(id);
+      return;
+    }
+
+    const error = new Error("Robot not found");
+    error.type = errorTypes.missingId;
+    next(error);
+  } catch (error) {
+    error.type = errorTypes.invalidId;
+    next(error);
+  }
+};
+
+module.exports = {
+  getAllRobots,
+  getRobot,
+  createRobot,
+  updateRobot,
+  deleteRobot,
+};

@@ -18,9 +18,14 @@ const incorrectMethod = (req, res) => {
 
 const invalidId = (req, res) => {
   const code = 501;
+  res.status(code).json(generateJSON(code, "The id provided is not valid"));
+};
+
+const missingId = (req, res) => {
+  const code = 404;
   res
     .status(code)
-    .json(generateJSON(code, "Method not implemented for this route"));
+    .json(generateJSON(code, "The id was not present in the database"));
 };
 
 const badRequest = (req, res) => {
@@ -39,4 +44,5 @@ module.exports = {
   invalidId,
   badRequest,
   serverError,
+  missingId,
 };

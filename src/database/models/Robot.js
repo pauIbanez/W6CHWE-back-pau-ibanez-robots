@@ -7,21 +7,21 @@ const RobotSchema = new Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     image: {
       type: SchemaTypes.Url,
-      require: true,
+      required: true,
     },
     universe: {
       type: String,
-      require: true,
+      required: true,
     },
     sentient: {
       type: Boolean,
-      require: true,
+      required: true,
     },
-    aperances: [
+    appearances: [
       {
         type: String,
       },

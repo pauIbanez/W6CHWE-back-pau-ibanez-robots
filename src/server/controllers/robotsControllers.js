@@ -30,4 +30,17 @@ const getRobot = async (req, res, next) => {
   }
 };
 
-module.exports = { getAllRobots, getRobot };
+const createRobot = async (req, res, next) => {
+  const robot = req.body;
+  delete robot.id;
+
+  try {
+    const createdRobot = await Robot.create(robot);
+    res.json(createdRobot);
+  } catch (error) {
+    error.type = errorTypes.invalidSchema;
+    next(error);
+  }
+};
+
+module.exports = { getAllRobots, getRobot, createRobot };

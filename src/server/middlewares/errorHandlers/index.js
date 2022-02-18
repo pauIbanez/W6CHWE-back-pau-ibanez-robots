@@ -6,6 +6,7 @@ const {
   incorrectMethod,
   missingToken,
   invalidToken,
+  invalidSchema,
 } = require("./errorHandlers");
 const errorTypes = require("./errorTypes");
 
@@ -34,6 +35,10 @@ const errorHandler = (err, req, res, next) => {
 
     case errorTypes.missingToken:
       missingToken(null, res);
+      break;
+
+    case errorTypes.invalidSchema:
+      invalidSchema(null, res, err.message);
       break;
 
     default:

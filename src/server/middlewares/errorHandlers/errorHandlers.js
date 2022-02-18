@@ -43,6 +43,11 @@ const missingToken = (req, res) => {
   res.status(code).json(generateJSON(code, "Forbidden: Token missing"));
 };
 
+const invalidSchema = (req, res, message) => {
+  const code = 400;
+  res.status(code).json(generateJSON(code, message));
+};
+
 const serverError = (req, res) => {
   const code = 500;
   res.status(code).json(generateJSON(code, "Internal server error"));
@@ -57,4 +62,5 @@ module.exports = {
   missingId,
   invalidToken,
   missingToken,
+  invalidSchema,
 };

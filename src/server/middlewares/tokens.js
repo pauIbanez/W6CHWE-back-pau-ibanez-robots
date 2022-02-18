@@ -3,17 +3,10 @@ const errorTypes = require("./errorHandlers/errorTypes");
 
 const secret = process.env.TOKEN_SECRET;
 
-const generateToken = (user) => jwt.sign(user, secret);
+const generateToken = () => jwt.sign("socUnToken", secret);
 
-const getToken = (req, res, next) => {
-  const user = req.body.clientUser;
-  if (typeof user !== "string") {
-    const error = new Error("nem malament");
-    error.type = errorTypes.badRequest;
-    next(error);
-    return;
-  }
-  const token = generateToken(user);
+const getToken = (req, res) => {
+  const token = generateToken();
   res.json({ token });
 };
 

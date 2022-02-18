@@ -33,6 +33,7 @@ const startServer = (port) => {
 app.use(morgan("dev"));
 app.use(express.json());
 
+app.use("/token", getToken);
 app.use("/robots", robotsRouter);
 
 app.use(resourceNotFound);

@@ -71,7 +71,7 @@ describe("Given getRobot", () => {
     });
   });
 
-  describe("When it's invoked with a res and a next and findById returns null", () => {
+  describe("When it's invoked with a req and  next and findById returns null", () => {
     test("Then it should invoke next() with an error with type missingId", async () => {
       const error = expect.objectContaining({
         type: errorTypes.missingId,
@@ -88,6 +88,31 @@ describe("Given getRobot", () => {
 
       expect(Robot.findById).toHaveBeenCalled();
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe("When it's invoked with a req, a res and next and findById returns null", () => {
+    test("Then it should invoke next() with an error with type missingId", async () => {
+      const error = expect.objectContaining({
+        type: errorTypes.missingId,
+      });
+      const req = {
+        params: {
+          id: 3,
+        },
+      };
+      const next = jest.fn();
+      const res = {
+        json: jest.fn(),
+      };
+
+      Robot.find = jest.fn().mockResolvedValue(null);
+
+      await getRobot(req, null, next);
+
+      expect(Robot.findById).toHaveBeenCalled();
+      expect(next).toHaveBeenCalledWith(error);
+      expect(res.json).not.toHaveBeenCalled();
     });
   });
 });

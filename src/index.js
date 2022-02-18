@@ -4,9 +4,12 @@ const chalk = require("chalk");
 
 const connectToDB = require("./database");
 const startServer = require("./server");
+const programArguments = require("./utils/commander");
 
 const port = process.env.PORT || 8080;
-const connectionString = process.env.CONN_STRING || "";
+const connectionString = programArguments.devDatabase
+  ? process.env.DEV_CONN_STRING || ""
+  : process.env.CONN_STRING || "";
 
 (async () => {
   try {

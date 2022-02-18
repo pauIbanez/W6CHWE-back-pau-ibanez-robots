@@ -1,5 +1,6 @@
 const Robot = require("../../database/models/Robot");
-const { getAllRobots } = require("./robotsControllers");
+const errorTypes = require("../middlewares/errorHandlers/errorTypes");
+const { getAllRobots, getRobot } = require("./robotsControllers");
 
 jest.mock("../../database/models/Robot");
 
@@ -36,6 +37,56 @@ describe("Given getAllRobots", () => {
       await getAllRobots(null, null, next);
 
       expect(Robot.find).toHaveBeenCalled();
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given getRobot", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  describe("When it's invoked with req, res and next", () => {
+    test("Then it should invoke json() of res and not next", async () => {
+      const res = {
+        json: jest.fn(),
+      };
+      const req = {
+        params: {
+          id: 3,
+        },
+      };
+
+      const robot = { name: "equisde" };
+
+      const next = jest.fn();
+      Robot.findById = jest.fn().mockResolvedValue(robot);
+
+      await getRobot(req, res, next);
+
+      expect(Robot.findById).toHaveBeenCalledWith(req.params.id);
+      expect(res.json).toHaveBeenCalledWith(robot);
+      expect(next).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("When it's invoked with a res and a next and findById returns null", () => {
+    test("Then it should invoke next() with an error with type missingId", async () => {
+      const error = expect.objectContaining({
+        type: errorTypes.missingId,
+      });
+      const req = {
+        params: {
+          id: 3,
+        },
+      };
+      const next = jest.fn();
+      Robot.find = jest.fn().mockResolvedValue(null);
+
+      await getRobot(req, null, next);
+
+      expect(Robot.findById).toHaveBeenCalled();
       expect(next).toHaveBeenCalledWith(error);
     });
   });

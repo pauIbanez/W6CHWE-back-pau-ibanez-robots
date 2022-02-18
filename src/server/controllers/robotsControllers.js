@@ -4,7 +4,6 @@ const errorTypes = require("../middlewares/errorHandlers/errorTypes");
 const getAllRobots = async (req, res, next) => {
   try {
     const robots = await Robot.find();
-
     res.json({ robots });
   } catch (error) {
     next(error);
@@ -15,7 +14,9 @@ const getRobot = async (req, res, next) => {
   const { id } = req.params;
 
   try {
+    console.log("sadas");
     const robot = await Robot.findById(id);
+    console.log("sdfsdfds");
     if (robot) {
       res.json(robot);
       return;

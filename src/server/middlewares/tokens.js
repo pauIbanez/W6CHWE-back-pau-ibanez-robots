@@ -10,7 +10,7 @@ const getToken = (req, res) => {
   res.json({ token });
 };
 
-const validateToken = (req, res, next) => {
+const validateToken = async (req, res, next) => {
   const { token } = req.query;
 
   if (!token) {
@@ -20,13 +20,14 @@ const validateToken = (req, res, next) => {
     return;
   }
 
-  jwt.verify(token, req.locals.secret, (error) => {
+  await jwt.verify(token, secret, (error) => {
     if (error) {
-      const newError = { ...error };
+      const newError = new Error("asdasdasdasdas");
       newError.type = errorTypes.invalidToken;
-      next(error);
+      next(newError);
       return;
     }
+
     next();
   });
 };

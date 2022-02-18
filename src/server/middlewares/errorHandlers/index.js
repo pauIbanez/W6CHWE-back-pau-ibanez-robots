@@ -4,6 +4,8 @@ const {
   serverError,
   missingId,
   incorrectMethod,
+  missingToken,
+  invalidToken,
 } = require("./errorHandlers");
 const errorTypes = require("./errorTypes");
 
@@ -13,9 +15,11 @@ const errorHandler = (err, req, res, next) => {
     case errorTypes.invalidId:
       invalidId(null, res);
       break;
+
     case errorTypes.badRequest:
       badRequest(null, res);
       break;
+
     case errorTypes.missingId:
       missingId(null, res);
       break;
@@ -23,6 +27,15 @@ const errorHandler = (err, req, res, next) => {
     case errorTypes.incorrectMethod:
       incorrectMethod(null, res);
       break;
+
+    case errorTypes.invalidToken:
+      invalidToken(null, res);
+      break;
+
+    case errorTypes.missingToken:
+      missingToken(null, res);
+      break;
+
     default:
       serverError(null, res);
       break;

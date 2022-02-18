@@ -5,8 +5,8 @@ const { validateToken } = require("../middlewares/tokens");
 
 const router = express.Router();
 
+router.use("/create", methodChecker("POST"), validateToken);
 router.use("/:id", methodChecker("GET"), getRobot);
 router.use("/", methodChecker("GET"), getAllRobots);
-router.use("/create", methodChecker("POST"), validateToken);
 
 module.exports = router;

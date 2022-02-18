@@ -30,5 +30,11 @@
     "mongoose": "^6.2.2",
     "mongoose-type-url": "^2.1.0",
     "morgan": "^1.10.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js"
+    ]
   }
 }

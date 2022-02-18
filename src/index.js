@@ -11,8 +11,10 @@ const connectionString = programArguments.devDatabase
   ? process.env.DEV_CONN_STRING || ""
   : process.env.CONN_STRING || "";
 
+const secret = process.env.TOKEN_SECRET;
 (async () => {
   try {
+    const token = generateToken(secret);
     await startServer(port);
     await connectToDB(connectionString);
   } catch (error) {

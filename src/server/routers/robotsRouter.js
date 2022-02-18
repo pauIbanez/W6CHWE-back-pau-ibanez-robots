@@ -1,8 +1,10 @@
 const express = require("express");
+const { getAllRobots, getRobot } = require("../controllers/robotsControllers");
+const methodChecker = require("../middlewares/methodChecker");
 
 const router = express.Router();
 
-router.get("/");
-router.get("/:id");
+router.use("/:id", methodChecker("GET"), getRobot);
+router.use("/", methodChecker("GET"), getAllRobots);
 
 module.exports = router;

@@ -13,11 +13,11 @@ const incorrectMethod = (req, res) => {
   const code = 501;
   res
     .status(code)
-    .json(generateJSON(code, "Method not implemented for this route"));
+    .json(generateJSON(code, "Method not implemented for this endpoint"));
 };
 
 const invalidId = (req, res) => {
-  const code = 501;
+  const code = 400;
   res.status(code).json(generateJSON(code, "The id provided is not valid"));
 };
 

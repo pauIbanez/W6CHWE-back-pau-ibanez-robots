@@ -4,6 +4,7 @@ const errorTypes = require("../middlewares/errorHandlers/errorTypes");
 const getAllRobots = async (req, res, next) => {
   try {
     const robots = await Robot.find();
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.json({ robots });
   } catch (error) {
     next(error);

@@ -134,7 +134,7 @@ Here is a list of the posible errors you might encounter:
 
 ### Resource not found
 
-The API will respond with this error when the requested endpoint does not exist
+The API will respond with this error when the requested endpoint does not exist.
 
 ```JSON
 {

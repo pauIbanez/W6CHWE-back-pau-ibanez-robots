@@ -2,6 +2,7 @@ const chalk = require("chalk");
 const express = require("express");
 const debug = require("debug")("app:server");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const errorHandler = require("./middlewares/errorHandlers");
 const {
@@ -33,6 +34,7 @@ const startServer = (port) => {
   });
 };
 app.use(morgan("dev"));
+app.use(cors());
 app.use(express.json());
 
 app.use("/token", methodChecker("GET"), getToken);

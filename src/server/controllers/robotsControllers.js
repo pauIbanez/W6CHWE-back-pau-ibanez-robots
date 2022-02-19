@@ -18,6 +18,7 @@ const getRobot = async (req, res, next) => {
     const robot = await Robot.findById(id);
 
     if (robot) {
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.json(robot);
       return;
     }
@@ -37,6 +38,7 @@ const createRobot = async (req, res, next) => {
 
   try {
     const createdRobot = await Robot.create(robot);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.json(createdRobot);
   } catch (error) {
     error.type = errorTypes.invalidSchema;
@@ -56,7 +58,7 @@ const updateRobot = async (req, res, next) => {
       next(error);
       return;
     }
-
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.json(robot);
   } catch (error) {
     if (error.errors) {
@@ -79,6 +81,7 @@ const deleteRobot = async (req, res, next) => {
     const robot = await Robot.findByIdAndDelete(id);
 
     if (robot) {
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.json(id);
       return;
     }

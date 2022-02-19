@@ -51,7 +51,7 @@ const updateRobot = async (req, res, next) => {
     });
     if (response.modifiedCount === 0) {
       const error = new Error("caca");
-      error.type = errorTypes.invalidId;
+      error.type = errorTypes.missingId;
       next(error);
       return;
     }

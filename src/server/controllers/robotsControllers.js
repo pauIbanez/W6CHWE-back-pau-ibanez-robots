@@ -33,6 +33,7 @@ const getRobot = async (req, res, next) => {
 const createRobot = async (req, res, next) => {
   const robot = req.body;
   delete robot.id;
+  delete robot.popular;
 
   try {
     const createdRobot = await Robot.create(robot);

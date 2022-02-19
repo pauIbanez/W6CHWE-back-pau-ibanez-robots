@@ -9,6 +9,14 @@ const RobotSchema = new Schema(
       type: String,
       required: true,
     },
+    description: {
+      type: String,
+      required: true,
+    },
+    popular: {
+      type: Boolean,
+      immutable: true,
+    },
     image: {
       type: SchemaTypes.Url,
       required: true,

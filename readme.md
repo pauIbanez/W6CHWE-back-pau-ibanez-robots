@@ -15,7 +15,8 @@ This program accepts the `-d` or `--dev-database` modifier to tell the program t
 
 This program uses the following enviroment variables:
 
-- `DEBUG` Which allows the packet debug to show messages depending on the namespace. Recommended value: `app:*`. -`PORT` Which tells the app in what port to open the app. If not specified it will use `8080`.
+- `DEBUG` Which allows the packet debug to show messages depending on the namespace. Recommended value: `app:*`. 
+- `PORT` Which tells the app in what port to open the app. If not specified it will use `8080`.
 - `CONN_STRING` To specify the mongoDB connection string to the production database.
 - `DEV_CONN_STRING` To specify the mongoDB connection string to the development database. 
 - `TOKEN_SECRET` To specify the secret on which our tokens will be generated (used to post,put and delete items from the DB).

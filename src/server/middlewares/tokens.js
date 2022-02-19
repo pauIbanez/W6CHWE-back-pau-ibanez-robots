@@ -7,6 +7,7 @@ const generateToken = () => jwt.sign("socUnToken", secret);
 
 const getToken = (req, res) => {
   const token = generateToken();
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.json({ token });
 };
 

@@ -6,13 +6,11 @@ const generateJSON = (code, message) => ({
 
 const resourceNotFound = (req, res) => {
   const code = 404;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(code).json(generateJSON(code, "Resource not found"));
 };
 
 const incorrectMethod = (req, res) => {
   const code = 501;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res
     .status(code)
     .json(generateJSON(code, "Method not implemented for this endpoint"));
@@ -20,13 +18,11 @@ const incorrectMethod = (req, res) => {
 
 const invalidId = (req, res) => {
   const code = 400;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(code).json(generateJSON(code, "The id provided is not valid"));
 };
 
 const missingId = (req, res) => {
   const code = 404;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res
     .status(code)
     .json(generateJSON(code, "The id was not present in the database"));
@@ -34,31 +30,26 @@ const missingId = (req, res) => {
 
 const badRequest = (req, res) => {
   const code = 400;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(code).json(generateJSON(code, "Bad request"));
 };
 
 const invalidToken = (req, res) => {
   const code = 403;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(code).json(generateJSON(code, "Forbidden: Token invalid"));
 };
 
 const missingToken = (req, res) => {
   const code = 403;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(code).json(generateJSON(code, "Forbidden: Token missing"));
 };
 
 const invalidSchema = (req, res, message) => {
   const code = 400;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(code).json(generateJSON(code, message));
 };
 
 const serverError = (req, res) => {
   const code = 500;
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.status(code).json(generateJSON(code, "Internal server error"));
 };
 

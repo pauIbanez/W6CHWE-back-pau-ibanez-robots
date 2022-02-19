@@ -43,6 +43,7 @@ const errorHandler = (err, req, res, next) => {
 
     default:
       serverError(null, res);
+      console.log(err);
       break;
   }
 };

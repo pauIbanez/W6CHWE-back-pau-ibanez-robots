@@ -34,7 +34,11 @@ const startServer = (port) => {
   });
 };
 app.use(morgan("dev"));
-app.use(cors());
+app.use(
+  cors({
+    methods: ["GET", "PUT", "POST", "DELETE"],
+  })
+);
 app.use(express.json());
 
 app.use("/token", methodChecker("GET"), getToken);

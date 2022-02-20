@@ -25,15 +25,11 @@ const RobotSchema = new Schema(
       type: String,
       required: true,
     },
-    sentient: {
-      type: Boolean,
+    tags: {
+      type: Array,
       required: true,
+      minlength: 1,
     },
-    appearances: [
-      {
-        type: String,
-      },
-    ],
   },
   {
     toJSON: {

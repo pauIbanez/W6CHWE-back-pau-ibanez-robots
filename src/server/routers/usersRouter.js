@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.use("/register", methodChecker("POST"), checkUserAvail, registerUser);
 
-router.use("/activate/:token", methodChecker("POST"), activateUser);
+router.use("/activate/:token", methodChecker("GET"), activateUser);
 
 router.use("/login", methodChecker("POST"), checkUserCredentials, sendToken);
 

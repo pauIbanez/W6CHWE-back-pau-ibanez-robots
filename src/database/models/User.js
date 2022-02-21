@@ -32,14 +32,8 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    activeToken: {
-      type: String,
-      required: true,
-    },
-    activationExpiration: {
-      type: String,
-      required: true,
-    },
+    activeToken: String,
+    activationExpiration: String,
   },
   {
     timestamps: true,

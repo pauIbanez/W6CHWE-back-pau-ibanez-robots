@@ -21,6 +21,9 @@ const checkUserAvailavility = async (req, res, next) => {
     next(error);
     return;
   }
+
+  req.user = user;
+
   next();
 };
 
@@ -57,14 +60,23 @@ const checkUserCredentials = async (req, res, next) => {
 };
 
 const registerUser = async (req, res, next) => {
+  if (!req.user.password) {
+    const error = new Error("password not provided");
+    error.type = errorTypes.invalidPassword;
+    next(error);
+    return;
+  }
+
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
   try {
     const user = {
-      name: req.body.name,
-      email: req.body.email,
-      username: req.body.username,
+      name: req.user.name,
+      lastName: req.user.lastName,
+      email: req.user.email,
+      username: req.user.username,
+      avatar: req.user.avatar,
       password: hashedPassword,
     };
 

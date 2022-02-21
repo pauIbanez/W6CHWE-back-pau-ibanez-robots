@@ -8,8 +8,6 @@ const errorHandler = require("./middlewares/errorHandlers");
 const {
   resourceNotFound,
 } = require("./middlewares/errorHandlers/errorHandlers");
-const methodChecker = require("./middlewares/methodChecker");
-const { getToken } = require("./middlewares/tokens");
 const robotsRouter = require("./routers/robotsRouter");
 const usersRouter = require("./routers/usersRouter");
 

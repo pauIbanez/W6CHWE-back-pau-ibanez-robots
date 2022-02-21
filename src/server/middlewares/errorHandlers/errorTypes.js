@@ -9,6 +9,7 @@ const errorTypes = {
   userConflict: "user-conflict",
   userMissing: "user-missing",
   invalidPassword: "invalid-password",
+  activationFailed: "activation-failed",
 };
 
 module.exports = errorTypes;

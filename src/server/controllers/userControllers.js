@@ -88,10 +88,47 @@ const registerUser = async (req, res, next) => {
       register: true,
     };
 
-    next();
+    res.status(204).json({});
   } catch (error) {
     error.type = errorTypes.invalidSchema;
     next(error);
+  }
+};
+
+const activateUser = async (req, res, next) => {
+  const userActivationToken = req.params.token;
+
+  try {
+    const userToActivate = await User.findOne({
+      activeToken: userActivationToken,
+    });
+
+    if (!userToActivate) {
+      const error = new Error("Activation failed");
+      error.type = errorTypes.activationFailed;
+      next(error);
+      return;
+    }
+
+    if (!userToActivate.activationExpiration > Date.now()) {
+      await User.findByIdAndDelete(userToActivate.id);
+      const error = new Error("Activation failed");
+      error.type = errorTypes.activationFailed;
+      next(error);
+    }
+
+    userToActivate.active = true;
+    delete userToActivate.activeToken;
+    delete userToActivate.activationExpiration;
+
+    await userToActivate.save();
+
+    res.status(204).json({});
+  } catch (error) {
+    const newError = new Error("Activation failed");
+    newError.type = errorTypes.activationFailed;
+    newError.error = error;
+    next(newError);
   }
 };
 
@@ -99,4 +136,5 @@ module.exports = {
   checkUserAvail: checkUserAvailavility,
   registerUser,
   checkUserCredentials,
+  activateUser,
 };

@@ -34,3 +34,5 @@ const sendEmail = (mail = {}) => {
     debug(chalk.yellowBright(`Email info:\n ${info}`));
   });
 };
+
+module.exports = sendEmail;

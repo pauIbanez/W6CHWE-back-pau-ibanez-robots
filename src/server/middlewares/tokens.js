@@ -3,10 +3,15 @@ const errorTypes = require("./errorHandlers/errorTypes");
 
 const secret = process.env.TOKEN_SECRET;
 
-const generateToken = () => jwt.sign("socUnToken", secret);
+const generateToken = (req) => {
+  const sessonToken = `${req.auth.id}${Date.now()}`;
+  const token = jwt.sign(sessonToken, secret);
+  return token;
+};
 
-const getToken = (req, res) => {
-  const token = generateToken();
+const sendToken = (req, res) => {
+  const token = generateToken(req);
+  req.token = token;
   res.json({ token });
 };
 
@@ -32,4 +37,4 @@ const validateToken = async (req, res, next) => {
   });
 };
 
-module.exports = { validateToken, getToken };
+module.exports = { validateToken, sendToken };

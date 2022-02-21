@@ -53,6 +53,18 @@ const userConflict = (req, res, err) => {
   res.status(code).json(generateJSON(code, err.conflict));
 };
 
+const userMissing = (req, res) => {
+  const code = 401;
+  res
+    .status(code)
+    .json(generateJSON(code, "Username was not present in the database"));
+};
+
+const invalidPassword = (req, res) => {
+  const code = 403;
+  res.status(code).json(generateJSON(code, "Invalid password"));
+};
+
 const serverError = (req, res) => {
   const code = 500;
   res.status(code).json(generateJSON(code, "Internal server error"));
@@ -69,4 +81,6 @@ module.exports = {
   missingToken,
   invalidSchema,
   userConflict,
+  userMissing,
+  invalidPassword,
 };

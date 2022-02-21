@@ -42,8 +42,6 @@ app.use(
 );
 app.use(express.json());
 
-app.use("/token", methodChecker("GET"), getToken);
-
 app.use("/users", usersRouter);
 app.use("/robots", robotsRouter);
 

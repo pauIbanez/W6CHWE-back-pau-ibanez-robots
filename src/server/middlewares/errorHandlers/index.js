@@ -7,6 +7,7 @@ const {
   missingToken,
   invalidToken,
   invalidSchema,
+  userConflict,
 } = require("./errorHandlers");
 const errorTypes = require("./errorTypes");
 
@@ -41,9 +42,12 @@ const errorHandler = (err, req, res, next) => {
       invalidSchema(null, res, err.message);
       break;
 
+    case errorTypes.userConflict:
+      userConflict(null, res, err.conflict);
+      break;
+
     default:
       serverError(null, res);
-      console.log(err);
       break;
   }
 };

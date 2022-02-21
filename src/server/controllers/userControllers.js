@@ -23,6 +23,21 @@ const checkUserAvail = async (req, res, next) => {
   next();
 };
 
-const registerUser = (req, res, next) => {};
+const registerUser = async (req, res, next) => {
+  const user = req.body;
+  try {
+    const createdUser = await User.create(user);
+    req.user = createdUser;
+    req.auth = {
+      id: createdUser.id,
+      register: true,
+    };
+
+    next();
+  } catch (error) {
+    error.type = errorTypes.invalidSchema;
+    next(error);
+  }
+};
 
 module.exports = { checkUserAvail, registerUser };

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
-const { model, Schema } = require("mongoose");
+const { model, Schema, SchemaTypes } = require("mongoose");
 
 const UserSchema = new Schema(
   {
@@ -10,6 +10,10 @@ const UserSchema = new Schema(
     },
     lastName: {
       type: String,
+      required: true,
+    },
+    avatar: {
+      type: SchemaTypes.Url,
       required: true,
     },
     email: {

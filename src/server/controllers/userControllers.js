@@ -52,6 +52,8 @@ const checkUserCredentials = async (req, res, next) => {
     id: userExists.id,
     register: false,
   };
+
+  next();
 };
 
 const registerUser = async (req, res, next) => {
@@ -81,4 +83,8 @@ const registerUser = async (req, res, next) => {
   }
 };
 
-module.exports = { checkUserAvail: checkUserAvailavility, registerUser };
+module.exports = {
+  checkUserAvail: checkUserAvailavility,
+  registerUser,
+  checkUserCredentials,
+};

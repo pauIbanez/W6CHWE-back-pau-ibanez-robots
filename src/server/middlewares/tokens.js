@@ -16,7 +16,16 @@ const sendToken = (req, res) => {
 };
 
 const validateToken = async (req, res, next) => {
-  const { token } = req.query;
+  const authHeader = req.headers.authorization;
+
+  const bearer = authHeader && authHeader.split(" ")[0];
+  if (bearer !== "Bearer") {
+    const error = new Error("Bearer not found");
+    error.type = errorTypes.missingToken;
+    next(error);
+  }
+
+  const token = authHeader && authHeader.split(" ")[1];
 
   if (!token) {
     const error = new Error("Token not provided");
@@ -27,7 +36,7 @@ const validateToken = async (req, res, next) => {
 
   await jwt.verify(token, secret, (error) => {
     if (error) {
-      const newError = new Error("asdasdasdasdas");
+      const newError = new Error("Invalid token");
       newError.type = errorTypes.invalidToken;
       next(newError);
       return;

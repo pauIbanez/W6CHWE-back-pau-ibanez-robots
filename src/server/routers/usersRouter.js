@@ -2,6 +2,7 @@ const express = require("express");
 const {
   registerUser,
   checkUserAvail,
+  checkUserCredentials,
 } = require("../controllers/userControllers");
 const methodChecker = require("../middlewares/methodChecker");
 const { sendToken } = require("../middlewares/tokens");
@@ -15,12 +16,6 @@ router.use(
   registerUser,
   sendToken
 );
-router.use(
-  "/login",
-  methodChecker("POST"),
-  checkUserAvail,
-  registerUser,
-  sendToken
-);
+router.use("/login", methodChecker("POST"), checkUserCredentials, sendToken);
 
 module.exports = router;

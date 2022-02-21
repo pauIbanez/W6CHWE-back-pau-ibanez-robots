@@ -10,6 +10,8 @@ const {
   userConflict,
   userMissing,
   invalidPassword,
+  activationFailed,
+  userInactive,
 } = require("./errorHandlers");
 const errorTypes = require("./errorTypes");
 
@@ -54,6 +56,14 @@ const errorHandler = (err, req, res, next) => {
 
     case errorTypes.invalidPassword:
       invalidPassword(null, res);
+      break;
+
+    case errorTypes.activationFailed:
+      activationFailed(null, res);
+      break;
+
+    case errorTypes.userInactive:
+      userInactive(null, res);
       break;
 
     default:

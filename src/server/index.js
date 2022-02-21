@@ -11,6 +11,7 @@ const {
 const methodChecker = require("./middlewares/methodChecker");
 const { getToken } = require("./middlewares/tokens");
 const robotsRouter = require("./routers/robotsRouter");
+const usersRouter = require("./routers/usersRouter");
 
 const app = express();
 
@@ -42,6 +43,8 @@ app.use(
 app.use(express.json());
 
 app.use("/token", methodChecker("GET"), getToken);
+
+app.use("/users", usersRouter);
 app.use("/robots", robotsRouter);
 
 app.use(resourceNotFound);

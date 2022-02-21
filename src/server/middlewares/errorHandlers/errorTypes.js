@@ -6,6 +6,7 @@ const errorTypes = {
   invalidToken: "invalid-token",
   missingToken: "missing-token",
   invalidSchema: "invalid-schema",
+  userConflict: "user-conflict",
 };
 
 module.exports = errorTypes;

@@ -28,6 +28,12 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: false,
+    },
+    activeToken: String,
+    activationExpiration: Date,
   },
   {
     timestamps: true,

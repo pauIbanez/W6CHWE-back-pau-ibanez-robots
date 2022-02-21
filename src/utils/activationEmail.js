@@ -17,7 +17,7 @@ const getActivationEmail = (user, username, activationToken) => `
     your user: ${username}.
   </p>
 
-  <a href="http://localhost/users/activate/${activationToken}">Click here to activate ${username}</a>
+  <a href="https://robots-pau-ibanez.netlify.app/users/activate/${activationToken}">Click here to activate ${username}</a>
 </div>
 `;
 

@@ -10,6 +10,7 @@ const errorTypes = {
   userMissing: "user-missing",
   invalidPassword: "invalid-password",
   activationFailed: "activation-failed",
+  userInactive: "user-inactive",
 };
 
 module.exports = errorTypes;

@@ -48,9 +48,9 @@ const invalidSchema = (req, res, message) => {
   res.status(code).json(generateJSON(code, message));
 };
 
-const userConflict = (req, res, err) => {
+const userConflict = (req, res, conflict) => {
   const code = 409;
-  res.status(code).json(generateJSON(code, err.conflict));
+  res.status(code).json(generateJSON(code, conflict));
 };
 
 const userMissing = (req, res) => {
@@ -61,8 +61,18 @@ const userMissing = (req, res) => {
 };
 
 const invalidPassword = (req, res) => {
-  const code = 403;
+  const code = 401;
   res.status(code).json(generateJSON(code, "Invalid password"));
+};
+
+const activationFailed = (req, res) => {
+  const code = 400;
+  res.status(code).json(generateJSON(code, "The user activation failed"));
+};
+
+const userInactive = (req, res) => {
+  const code = 403;
+  res.status(code).json(generateJSON(code, "The requested user is not active"));
 };
 
 const serverError = (req, res) => {
@@ -83,4 +93,6 @@ module.exports = {
   userConflict,
   userMissing,
   invalidPassword,
+  activationFailed,
+  userInactive,
 };

@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 const User = require("../../database/models/User");
 const errorTypes = require("../middlewares/errorHandlers/errorTypes");
 
@@ -11,7 +12,7 @@ const checkUserAvailavility = async (req, res, next) => {
   if (userExists) {
     let conflict = "email";
 
-    if (userExists.username === req.username) {
+    if (userExists.username === user.username) {
       conflict = "username";
     }
     const error = new Error("user exists");
@@ -50,6 +51,13 @@ const checkUserCredentials = async (req, res, next) => {
     return;
   }
 
+  if (!userExists.active) {
+    const error = new Error("user not active");
+    error.type = errorTypes.userInactive;
+    next(error);
+    return;
+  }
+
   req.user = userExists;
   req.auth = {
     id: userExists.id,
@@ -70,6 +78,9 @@ const registerUser = async (req, res, next) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
+  const activeToken = crypto.randomBytes(30);
+  const activationExpiration = Date.now() + 24 * 3600 * 1000;
+
   try {
     const user = {
       name: req.user.name,
@@ -78,6 +89,8 @@ const registerUser = async (req, res, next) => {
       username: req.user.username,
       avatar: req.user.avatar,
       password: hashedPassword,
+      activeToken,
+      activationExpiration,
     };
 
     const createdUser = await User.create(user);

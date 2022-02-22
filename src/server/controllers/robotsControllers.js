@@ -31,7 +31,7 @@ const getRobot = async (req, res, next) => {
 };
 
 const createRobot = async (req, res, next) => {
-  const robot = req.body;
+  const { robot } = req.body;
   delete robot.id;
   delete robot.popular;
 
@@ -45,7 +45,7 @@ const createRobot = async (req, res, next) => {
 };
 
 const updateRobot = async (req, res, next) => {
-  const robot = req.body;
+  const { robot } = req.body;
   try {
     const response = await Robot.replaceOne({ _id: robot.id }, robot, {
       runValidators: true,

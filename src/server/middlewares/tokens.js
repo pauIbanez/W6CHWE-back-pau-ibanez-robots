@@ -16,25 +16,7 @@ const sendToken = (req, res) => {
 };
 
 const validateToken = async (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    const error = new Error("Bearer not found");
-    error.type = errorTypes.missingToken;
-    next(error);
-    return;
-  }
-
-  const bearer = authHeader && authHeader.split(" ")[0];
-
-  if (bearer !== "Bearer") {
-    const error = new Error("Bearer not found");
-    error.type = errorTypes.missingToken;
-    next(error);
-    return;
-  }
-
-  const token = authHeader && authHeader.split(" ")[1];
+  const { token } = req.body;
 
   if (!token) {
     const error = new Error("Token not provided");

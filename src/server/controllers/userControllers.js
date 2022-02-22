@@ -38,7 +38,24 @@ const checkUserAvailavility = async (req, res, next) => {
 };
 
 const checkUserCredentials = async (req, res, next) => {
-  const user = req.body;
+  const authData = req.headers.authorization.split(" ");
+
+  if (!authData[0] || authData[0] !== "Basic") {
+    const error = new Error("username missing");
+    error.type = errorTypes.userMissing;
+    next(error);
+    return;
+  }
+
+  const userData = Buffer.from(authData[1], "base64")
+    .toString("ascii")
+    .split(":");
+
+  const user = {
+    username: userData[0],
+    password: userData[1],
+  };
+
   const userExists = await User.findOne({ username: user.username });
 
   if (!userExists) {

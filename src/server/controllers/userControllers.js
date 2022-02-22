@@ -198,9 +198,29 @@ const activateUser = async (req, res, next) => {
   }
 };
 
+const getUserData = async (req, res, next) => {
+  const { username } = req.body;
+  try {
+    const user = await User.findOne({
+      username,
+    });
+    if (!user) {
+      const error = new Error("username not found");
+      error.type = errorTypes.userMissing;
+      next(error);
+      return;
+    }
+
+    res.json({ user });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   checkUserAvail: checkUserAvailavility,
   registerUser,
   checkUserCredentials,
   activateUser,
+  getUserData,
 };

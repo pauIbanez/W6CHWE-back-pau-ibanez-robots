@@ -120,7 +120,7 @@ const registerUser = async (req, res, next) => {
       to: user.email,
     });
 
-    res.status(204).json({});
+    res.status(201).json({});
   } catch (error) {
     error.type = errorTypes.invalidSchema;
     next(error);
@@ -167,7 +167,7 @@ const activateUser = async (req, res, next) => {
 
     userToActivate.save();
 
-    res.status(204).json({});
+    res.status(200).json({});
     debug(
       chalk.whiteBright(`Activation for user ${userToActivate.username} `) +
         chalk.greenBright("SUCESSFULL")

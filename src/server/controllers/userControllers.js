@@ -15,11 +15,15 @@ const checkUserAvailavility = async (req, res, next) => {
   });
 
   if (userExists) {
-    let conflict = "email";
+    let conflict = "";
 
     if (userExists.username === user.username) {
-      conflict = "username";
+      conflict += "username ";
     }
+    if (userExists.email === user.email) {
+      conflict += "email ";
+    }
+
     const error = new Error("user exists");
     error.type = errorTypes.userConflict;
     error.conflict = conflict;
